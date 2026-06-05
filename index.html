@@ -1,1 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Cyberpunk Rainbow Interface</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0;
+            background-color: #05070f; /* Ultra Dark Deep Blue/Black Base */
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Darker, Subtle Blurred Rainbow Background --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 180deg,
+                #ff3366, #ff9933, #ffee00, #33ff99, #00bfff, #9933ff, #ff3366
+            );
+            filter: blur(140px);
+            opacity: 0.08; /* Low opacity for a dark ambient glow */
+            z-index: -1;
+            animation: rotateRainbow 30s linear infinite;
+        }
+
+        @keyframes rotateRainbow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Header --- */
+        header {
+            background: rgba(10, 15, 30, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            color: #00b4d8; /* Neon Blue */
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 800px;
+            width: 100%;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* --- Ultra Dark Content Panel --- */
+        main {
+            flex: 1;
+            background: rgba(11, 15, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Tabs Layout --- */
+        .tabs-container {
+            display: flex;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #64748b; /* Muted tab text */
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: #48cae4; /* Hover state color */
+        }
+
+        /* Active Tab Styling with Neon Line */
+        .tab-btn.active {
+            color: #00b4d8;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Sits directly on top of the container border */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #00b4d8;
+            box-shadow: 0 0 12px #00b4d8; /* Glowing indicator */
+        }
+
+        /* --- Channel Content Areas --- */
+        .channel-content {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .channel-content.active {
+            display: block; /* Show active channel */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .channel-content h2 {
+            color: #48cae4;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .channel-content p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* --- Smooth Rainbow Outline Button --- */
+        .rainbow-btn {
+            position: relative;
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            background: #0b0f1a;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            z-index: 1;
+        }
+
+        .rainbow-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff0055, #ff9900, #00ff66, #00ffff, #9900ff, #ff0055);
+            background-size: 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: dynamicBorder 6s linear infinite;
+        }
+
+        @keyframes dynamicBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .rainbow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 255, 213, 0.35), 0 0 10px rgba(255, 0, 85, 0.2);
+        }
+
+        .rainbow-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #475569;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NEON ARCH</h1>
+    </header>
+
+    <div class="container">
+        <main>
+            
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchChannel(event, 'channel-1')">Channel 1</button>
+                <button class="tab-btn" onclick="switchChannel(event, 'channel-2')">Channel 2</button>
+                <button class="tab-btn" onclick="switchChannel(event, 'channel-3')">Channel 3</button>
+            </div>
+
+            <div id="channel-1" class="channel-content active">
+                <h2>Default Frequency</h2>
+                <p>You are tuned into Channel 1. The layout relies on an ultra-dark background framework. The background rainbow rotates cleanly at an intentional 8% opacity to protect readable text presentation.</p>
+                <button class="rainbow-btn">Action One</button>
+            </div>
+
+            <div id="channel-2" class="channel-content">
+                <h2>Secondary Network</h2>
+                <p>Welcome to Channel 2. This dedicated sub-pane dynamically populates when the tab element registers a click event. Perfect for segmenting distinct modules or feeds within your network.</p>
+                <button class="rainbow-btn">Action Two</button>
+            </div>
+
+            <div id="channel-3" class="channel-content">
+                <h2>Alternate Feed</h2>
+                <p>This is Channel 3. The transitions use a subtle CSS opacity-fade and a slight vertical translation curve to give navigation interactions a responsive, tactile depth.</p>
+                <button class="rainbow-btn">Action Three</button>
+            </div>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Dark Cybernetics. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function switchChannel(event, channelId) {
+            const contents = document.querySelectorAll('.channel-content');
+            contents.forEach(content => content.classList.remove('active'));
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(channelId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
